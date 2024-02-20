@@ -8,9 +8,9 @@
 
 import SwiftUI
 
-#if os(macOS) || os(iOS) || os(tvOS)
+#if os(macOS) || os(iOS) || os(tvOS) || os(visionOS)
 /// A progress bar indicator (system style)
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, visionOS 1.0, *)
 public struct ProgressIndicator: PlatformViewRepresentable {
     @Binding var isAnimating: Bool
     @Binding var progress: Double
@@ -29,11 +29,11 @@ public struct ProgressIndicator: PlatformViewRepresentable {
     
     #if os(macOS)
     public typealias NSViewType = ProgressIndicatorWrapper
-    #elseif os(iOS) || os(tvOS)
+    #elseif os(iOS) || os(tvOS) || os(visionOS)
     public typealias UIViewType = ProgressIndicatorWrapper
     #endif
     
-    #if os(iOS) || os(tvOS)
+    #if os(iOS) || os(tvOS) || os(visionOS)
     public func makeUIView(context: UIViewRepresentableContext<ProgressIndicator>) -> ProgressIndicatorWrapper {
         let progressStyle: UIProgressView.Style
         switch style {
@@ -102,7 +102,7 @@ public struct ProgressIndicator: PlatformViewRepresentable {
     #endif
 }
 
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, visionOS 1.0, *)
 extension ProgressIndicator {
     public enum Style {
         case `default`

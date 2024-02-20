@@ -18,7 +18,7 @@ class UserSettings: ObservableObject {
 }
 
 #if os(watchOS)
-@available(iOS 14.0, OSX 11.0, tvOS 14.0, watchOS 7.0, *)
+@available(iOS 14.0, OSX 11.0, tvOS 14.0, watchOS 7.0, visionOS 1.0, *)
 extension Indicator where T == ProgressView<EmptyView, EmptyView> {
     static var activity: Indicator {
         Indicator { isAnimating, progress in

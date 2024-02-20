@@ -58,3 +58,13 @@ target 'SDWebImageSwiftUITests tvOS' do
   platform :tvos, '14.0'
   all_test_pods
 end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      # Activate VisionOS support for all Pods
+      config.build_settings['SUPPORTED_PLATFORMS'] = 'iphoneos iphonesimulator xros xrsimulator' # Includes VisionOS (xros) and its simulator (xrsimulator)
+      config.build_settings['TARGETED_DEVICE_FAMILY'] = '1,2,7' # Incorporate device family '7' for VisionOS
+    end
+  end
+end

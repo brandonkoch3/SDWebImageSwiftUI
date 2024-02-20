@@ -8,9 +8,9 @@
 
 import SwiftUI
 
-#if os(macOS) || os(iOS) || os(tvOS)
+#if os(macOS) || os(iOS) || os(tvOS) || os(visionOS)
 /// An activity indicator (system style)
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, visionOS 1.0, *)
 public struct ActivityIndicator: PlatformViewRepresentable {
     @Binding var isAnimating: Bool
     var style: Style
@@ -26,11 +26,11 @@ public struct ActivityIndicator: PlatformViewRepresentable {
     
     #if os(macOS)
     public typealias NSViewType = NSProgressIndicator
-    #elseif os(iOS) || os(tvOS)
+    #elseif os(iOS) || os(tvOS) || os(visionOS)
     public typealias UIViewType = UIActivityIndicatorView
     #endif
     
-    #if os(iOS) || os(tvOS)
+    #if os(iOS) || os(tvOS) || os(visionOS)
     public func makeUIView(context: UIViewRepresentableContext<ActivityIndicator>) -> UIActivityIndicatorView {
         let activityStyle: UIActivityIndicatorView.Style
         switch style {
@@ -72,7 +72,7 @@ public struct ActivityIndicator: PlatformViewRepresentable {
     #endif
 }
 
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, visionOS 1.0, *)
 extension ActivityIndicator {
     public enum Style {
         case medium

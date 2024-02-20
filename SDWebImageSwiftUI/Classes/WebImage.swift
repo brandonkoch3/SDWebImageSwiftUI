@@ -10,7 +10,7 @@ import SwiftUI
 import SDWebImage
 
 /// Data Binding Object, only properties in this object can support changes from user with @State and refresh
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, visionOS 1.0, *)
 final class WebImageModel : ObservableObject {
     /// URL image
     @Published var url: URL?
@@ -19,7 +19,7 @@ final class WebImageModel : ObservableObject {
 }
 
 /// Completion Handler Binding Object, supports dynamic @State changes
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, visionOS 1.0, *)
 final class WebImageHandler: ObservableObject {
     // Completion Handler
     @Published var successBlock: ((PlatformImage, Data?, SDImageCacheType) -> Void)?
@@ -28,7 +28,7 @@ final class WebImageHandler: ObservableObject {
 }
 
 /// Configuration Binding Object, supports dynamic @State changes
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, visionOS 1.0, *)
 final class WebImageConfiguration: ObservableObject {
     var retryOnAppear: Bool = true
     var cancelOnDisappear: Bool = true
@@ -42,7 +42,7 @@ final class WebImageConfiguration: ObservableObject {
 }
 
 /// A Image View type to load image from url. Supports static/animated image format.
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, visionOS 1.0, *)
 public struct WebImage : View {
     var configurations: [(Image) -> Image] = []
     
@@ -162,6 +162,8 @@ public struct WebImage : View {
                 // draw vector into bitmap with the screen scale (behavior like AppKit)
                 #if os(iOS) || os(tvOS)
                 let scale = UIScreen.main.scale
+                #elseif os(visionOS)
+                let scale = 1.0
                 #else
                 let scale = WKInterfaceDevice.current().screenScale
                 #endif
@@ -301,7 +303,7 @@ public struct WebImage : View {
 }
 
 // Layout
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, visionOS 1.0, *)
 extension WebImage {
     func configure(_ block: @escaping (Image) -> Image) -> WebImage {
         var result = self
@@ -339,7 +341,7 @@ extension WebImage {
 }
 
 // Completion Handler
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, visionOS 1.0, *)
 extension WebImage {
     
     /// Provide the action when image load fails.
@@ -371,7 +373,7 @@ extension WebImage {
 }
 
 // WebImage Modifier
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, visionOS 1.0, *)
 extension WebImage {
     
     /// Associate a placeholder when loading image with url
@@ -410,7 +412,7 @@ extension WebImage {
 }
 
 // Indicator
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, visionOS 1.0, *)
 extension WebImage {
     
     /// Associate a indicator when loading image with url
@@ -427,7 +429,7 @@ extension WebImage {
 }
 
 // Animated Image
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, visionOS 1.0, *)
 extension WebImage {
     
     /// Total loop count for animated image rendering. Defaults to nil.
@@ -495,7 +497,7 @@ extension WebImage {
 }
 
 #if DEBUG
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, visionOS 1.0, *)
 struct WebImage_Previews : PreviewProvider {
     static var previews: some View {
         Group {
